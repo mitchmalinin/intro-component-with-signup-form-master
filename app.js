@@ -9,6 +9,7 @@ let button = document.querySelector("#submit-button");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
+  //resetting values
   Array.from(errorImgs).forEach((img) => {
     img.setAttribute("style", "display: none");
   });
@@ -23,12 +24,10 @@ form.addEventListener("submit", (e) => {
   checkInputFields();
 });
 
-console.log(inputs);
 const checkInputFields = () => {
   Array.from(inputs).forEach((input) => {
     if (
       input.value === "" ||
-      input.value === null ||
       (input.name === "Email" && input.value.includes("@") === false)
     ) {
       let errorMsg = document.createElement("div");
@@ -40,7 +39,11 @@ const checkInputFields = () => {
       errorMsg.innerHTML = `<div>${input.name} cannot be empty</div>`;
       insertAfter(errorMsg, input);
       insertAfter(errorImg, input);
-      if (input.name === "Email" && input.value.includes("@") === false) {
+      if (
+        input.name === "Email" &&
+        input.value.includes("@") === false &&
+        input.value != ""
+      ) {
         errorMsg.innerHTML = `Looks like this is not an email</div>`;
       }
     }
